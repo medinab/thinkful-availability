@@ -1,51 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './components/Header';
 import StudentForm from './components/StudentForm';
 import AdvisorTable from './components/AdvisorTable';
 import BookedTable from './components/BookedTable';
 
-const App = () => {
+const App = (props) => {
+  const [name, setName] = useState(null);
+
+  function bookMeeting(advisor, dateTime) {
+    if (!name) {
+      alert('Please enter a name before booking with an advisor');
+    } else {
+      const details = {
+        id: advisor,
+        dateTime,
+        name
+      };
+
+      fetch('/bookMeeting', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(details),
+      });
+    }
+  }
+
+  function onNameChange(event) {
+    setName(event.target.value);
+  }
 
   return (
     <div className="App container">
       <Header/>
-      <StudentForm/>
-      <AdvisorTable/>
-      <BookedTable/>
+      <StudentForm onNameChange={onNameChange}/>
+      <AdvisorTable bookMeeting={bookMeeting}/>
+      <BookedTable />
     </div>
   )
 }
-
-// class App extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {};
-//     this.fetchToday();
-//   }
-
-//   async fetchToday() {
-//     try {
-//       const res = await fetch("/today");
-//       const json = await res.json();
-//       this.setState({today: json.today});
-//     } catch (e) {
-//       console.error("Failed to fetch 'today' data", e);
-//     }
-//   }
-
-//   render() {
-//     return (
-//       <div className="App container">
-//         <h1>Book Time with an Advisor</h1>
-//         {<span id="today">Today is {this.state.today}.</span>}
-//         <StudentForm/>
-//         <h2>Available Times</h2>
-//         <AdvisorTable/>
-//         <h2>Booked Times</h2>
-//         <BookedTable/>
-//       </div>
-//     );
-//   }
-// }
 
 export default App;

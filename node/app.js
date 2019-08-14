@@ -2,10 +2,15 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const PORT = 3001;
+const SchedulingService = require('./SchedulingService');
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+app.get('/availability', (req, res) => SchedulingService.getAvailability(req, res));
+
+app.post('/bookMeeting', async (req, res) => SchedulingService.bookMeeting(req, res));
 
 
 app.listen(PORT, (error) => {
