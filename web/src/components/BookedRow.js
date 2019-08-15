@@ -1,13 +1,13 @@
 import React from 'react';
 
-const BookedRow = () => {
+const BookedRow = (props) => {
     return (
         <tbody>
-            <tr>
-                <td>36232</td>
-                <td>John Smith</td>
+            <tr key={props.booking.b_id}>
+                <td className='booked-advisor-id'>{props.booking.id}</td>
+                <td className='booked-name'>{props.booking.name}</td>
                 <td>
-                <time dateTime="2019-04-03T10:00:00-04:00">4/3/2019 10:00 am</time>
+                <time className='booked-date-time' dateTime={props.booking.dateTime}>{props.booking.dateTime}</time>
                 </td>
             </tr>
         </tbody>

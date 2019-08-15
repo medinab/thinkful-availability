@@ -6,8 +6,9 @@ import BookedTable from './components/BookedTable';
 
 const App = (props) => {
   const [name, setName] = useState(null);
+  const [justBooked, setJustBooked] = useState([]);
 
-  function bookMeeting(advisor, dateTime) {
+  async function bookMeeting(advisor, dateTime, e) {
     if (!name) {
       alert('Please enter a name before booking with an advisor');
     } else {
@@ -17,11 +18,13 @@ const App = (props) => {
         name
       };
 
-      fetch('/bookMeeting', {
+      let booked = await fetch('/bookMeeting', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(details),
       });
+      booked = await booked.json();
+      setJustBooked(booked);
     }
   }
 
@@ -33,8 +36,8 @@ const App = (props) => {
     <div className="App container">
       <Header/>
       <StudentForm onNameChange={onNameChange}/>
-      <AdvisorTable bookMeeting={bookMeeting}/>
-      <BookedTable />
+      <AdvisorTable justBooked={justBooked} bookMeeting={bookMeeting}/>
+      <BookedTable justBooked={justBooked}/>
     </div>
   )
 }

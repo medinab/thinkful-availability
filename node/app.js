@@ -10,7 +10,9 @@ app.use(bodyParser.json());
 
 app.get('/availability', (req, res) => SchedulingService.getAvailability(req, res));
 
-app.post('/bookMeeting', async (req, res) => SchedulingService.bookMeeting(req, res));
+app.post('/bookMeeting', (req, res) => SchedulingService.bookMeeting(req, res));
+
+app.get('/booked', (req, res) => SchedulingService.getBookedTimes(req, res));
 
 
 app.listen(PORT, (error) => {

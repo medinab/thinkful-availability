@@ -4,7 +4,7 @@ const AdvisorRow = (props) => {
     return (
         <tbody>
             <tr>
-              <td>{props.id}</td>
+              <td className='advisor-id'>{props.id}</td>
               <td>
                 <ul className="list-unstyled">
                     {props.dateTime.map((date) => {
