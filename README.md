@@ -111,6 +111,12 @@ This project is best run using **Node 11.13.0**.
 cd node && npm install
 ```
 
+After running npm install in both the /node and /web directories
+You can run `npm run dev` from /node directory to have both node and web running at the same time.
+```shell
+npm run dev
+```
+
 Run the node tests:
 
 ```shell
